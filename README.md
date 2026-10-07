@@ -8,7 +8,7 @@ teach SQL, to test BI tools, semantic layers and text-to-SQL agents, to build de
 PostgreSQL settings.
 
 ```bash
-git clone <this repo> && cd tpc-postgres
+git clone https://github.com/anismiles/tpc-postgres.git && cd tpc-postgres
 make load        # ~1 minute: starts PostgreSQL and loads both databases (~4 GB)
 ```
 
