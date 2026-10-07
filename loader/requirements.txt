@@ -1,0 +1,4 @@
+# DuckDB is pinned exactly: its tpch/tpcds extensions are the data generators, and the official
+# TPC-H answer sets used by `verify` ship with them.
+duckdb==1.5.2
+psycopg[binary]>=3.2,<4

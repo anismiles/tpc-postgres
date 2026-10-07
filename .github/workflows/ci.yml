@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint loader code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx run ruff check loader/
+
+  load-and-verify:
+    name: Load and verify (SF 0.01)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the loader image
+        run: make build
+      - name: Load both benchmarks
+        run: make load PRESET=tiny
+      - name: Verify row counts, keys and all queries
+        run: make verify PRESET=tiny QUERY_TIMEOUT=120
+      - name: Show status
+        run: make status
+      - name: PostgreSQL log on failure
+        if: failure()
+        run: docker compose logs postgres
